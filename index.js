@@ -86,8 +86,8 @@ const startDrawing = event => {
 }
 const drawLine = event => {
     if ( isMouseDown ) {
-        const newX = event.offsetX || event.touches[0].clientX;
-        const newY = event.offsetY || event.touches[0].clientY - 50;
+        const newX = event.offsetX || event.touches[0].clientX - 10;
+        const newY = event.offsetY || event.touches[0].clientY - 70;
         context.beginPath();
         context.moveTo( x, y );
         context.lineTo( newX, newY );
