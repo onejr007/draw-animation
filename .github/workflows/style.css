@@ -1,0 +1,85 @@
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; }
+
+html, body {
+    position: relative;
+    height: 100%; }
+
+body {
+    margin:0;
+    padding:0;
+    width:100%;
+    height: 100%;
+    min-height: 100%;
+    overflow: hidden;
+}
+.container{
+    position: relative;
+    left: 50%;
+    top: 0;
+    height: 100%;
+    margin-top: 10px; /* half of you height */
+    width: 100%;
+    margin-left: -200px; /* half of you width */
+}
+
+#drawing-board{
+    width:auto;
+    height:auto;
+}
+
+.paint-canvas {
+    border: 2px black solid;
+}
+
+.paint-canvas:hover {
+    border: 2px rgb(251, 255, 0) solid;
+}
+
+.bg-canvas {
+    border: 2px black solid;
+}
+
+.bg-canvas:hover {
+    border: 2px rgb(251, 255, 0) solid;
+}
+.bg-canvas.active {
+    border: 2px rgb(251, 255, 0) solid;
+}
+
+.show {
+    margin-left: 5px;
+    border: 2px black solid;
+    background-repeat:repeat-x;
+    background-image:url("./bg1.png");
+    animation: movement 10s linear infinite; 
+}
+
+@keyframes movement{
+    0% {
+      background-position:0px 0px;
+    }
+    100%{
+      background-position:-500px 0px;
+    }
+  }
+  
+#ply{
+    display: none;
+}
+
+#track{
+    position: relative;
+    top:-208;
+    left:10;
+    font-size: 24px;
+    font-weight: bold;
+    color:red;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
