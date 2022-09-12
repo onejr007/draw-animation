@@ -83,13 +83,17 @@ if ("ontouchstart" in document.documentElement)
 {
     const stopDrawingT = () => { isTouchStart = false; }
     const startDrawingT = event => {
+        const touches = event.touches || [];
+        const touch = touches[0] || {};
         isTouchStart = true;   
-        [x, y] = [event.offsetX, event.offsetY];  
+        [x, y] = [touch.pageX - this.offsetLeft, touch.pageY - this.offsetTop - 40];  
     }
     const drawLineT = event => {
         if ( isTouchStart ) {
-            const newX = event.offsetX;
-            const newY = event.offsetY;
+            const touches = event.touches || [];
+            const touch = touches[0] || {};
+            const newX = touch.pageX - this.offsetLeft;
+            const newY = touch.pageY - this.offsetTop - 40;
             context.beginPath();
             context.moveTo( x, y );
             context.lineTo( newX, newY );
