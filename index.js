@@ -79,92 +79,52 @@ imageObj1.img.onload = function() {
     context3.drawImage(hand, 0, 0);
     start = setInterval(animateimageObj1, 120);
 };
-if ("ontouchstart" in document.documentElement)
-{
-    const stopDrawingT = () => { isTouchStart = false; }
-    const startDrawingT = event => {
-        const touches = event.touches || [];
-        const touch = touches[0] || {};
-        isTouchStart = true;   
-        [x, y] = [touch.pageX - this.offsetLeft, touch.pageY - this.offsetTop - 40];  
-    }
-    const drawLineT = event => {
-        if ( isTouchStart ) {
-            const touches = event.touches || [];
-            const touch = touches[0] || {};
-            const newX = touch.pageX - this.offsetLeft;
-            const newY = touch.pageY - this.offsetTop - 40;
-            context.beginPath();
-            context.moveTo( x, y );
-            context.lineTo( newX, newY );
-            context.stroke();
-            //[x, y] = [newX, newY];
-            x = newX;
-            y = newY;
-        }
-    }
-    const drawLineT1 = event => {
-        if ( isTouchStart ) {
-            const newX = event.offsetX;
-            const newY = event.offsetY;
-            context3.beginPath();
-            context3.moveTo( x, y );
-            context3.lineTo( newX, newY );
-            context3.stroke();
-            //[x, y] = [newX, newY];
-            x = newX;
-            y = newY;
-        }
-    }
-    headCanvas.addEventListener( 'touchstart', startDrawingT );
-    headCanvas.addEventListener( 'touchmove', drawLineT );
-    headCanvas.addEventListener( 'touchend', stopDrawingT );
-    handCanvas.addEventListener( 'touchstart', startDrawingT );
-    handCanvas.addEventListener( 'touchmove', drawLineT1 );
-    handCanvas.addEventListener( 'touchend', stopDrawingT );
+const stopDrawing = () => { isMouseDown = false; }
+const startDrawing = event => {
+    isMouseDown = true;   
+    [x, y] = [event.offsetX || event.touches[0].clientX, event.offsetY || event.touches[0].clientY];  
 }
-else
-{
-    const stopDrawing = () => { isMouseDown = false; }
-    const startDrawing = event => {
-        isMouseDown = true;   
-       [x, y] = [event.offsetX, event.offsetY];  
+const drawLine = event => {
+    if ( isMouseDown ) {
+        const newX = event.offsetX || event.touches[0].clientX;
+        const newY = event.offsetY || event.touches[0].clientY;
+        context.beginPath();
+        context.moveTo( x, y );
+        context.lineTo( newX, newY );
+        context.stroke();
+        //[x, y] = [newX, newY];
+        x = newX;
+        y = newY;
     }
-    const drawLine = event => {
-        if ( isMouseDown ) {
-            const newX = event.offsetX;
-            const newY = event.offsetY;
-            context.beginPath();
-            context.moveTo( x, y );
-            context.lineTo( newX, newY );
-            context.stroke();
-            //[x, y] = [newX, newY];
-            x = newX;
-            y = newY;
-        }
-    }
-    const drawLine1 = event => {
-        if ( isMouseDown ) {
-            const newX = event.offsetX;
-            const newY = event.offsetY;
-            context3.beginPath();
-            context3.moveTo( x, y );
-            context3.lineTo( newX, newY );
-            context3.stroke();
-            //[x, y] = [newX, newY];
-            x = newX;
-            y = newY;
-        }
-    }
-    headCanvas.addEventListener( 'mousedown', startDrawing );
-    headCanvas.addEventListener( 'mousemove', drawLine );
-    headCanvas.addEventListener( 'mouseup', stopDrawing );
-    headCanvas.addEventListener( 'mouseout', stopDrawing );
-    handCanvas.addEventListener( 'mousedown', startDrawing );
-    handCanvas.addEventListener( 'mousemove', drawLine1 );
-    handCanvas.addEventListener( 'mouseup', stopDrawing );
-    handCanvas.addEventListener( 'mouseout', stopDrawing );
 }
+const drawLine1 = event => {
+    if ( isMouseDown ) {
+        const newX = event.offsetX || event.touches[0].clientX;
+        const newY = event.offsetY || event.touches[0].clientY;
+        context3.beginPath();
+        context3.moveTo( x, y );
+        context3.lineTo( newX, newY );
+        context3.stroke();
+        //[x, y] = [newX, newY];
+        x = newX;
+        y = newY;
+    }
+}
+headCanvas.addEventListener( 'mousedown', startDrawing );
+headCanvas.addEventListener( 'mousemove', drawLine );
+headCanvas.addEventListener( 'mouseup', stopDrawing );
+headCanvas.addEventListener( 'mouseout', stopDrawing );
+handCanvas.addEventListener( 'mousedown', startDrawing );
+handCanvas.addEventListener( 'mousemove', drawLine1 );
+handCanvas.addEventListener( 'mouseup', stopDrawing );
+handCanvas.addEventListener( 'mouseout', stopDrawing );
+
+headCanvas.addEventListener( 'touchstart', startDrawing );
+headCanvas.addEventListener( 'touchmove', drawLine );
+headCanvas.addEventListener( 'touchend', stopDrawing );
+handCanvas.addEventListener( 'touchstart', startDrawing );
+handCanvas.addEventListener( 'touchmove', drawLine1 );
+handCanvas.addEventListener( 'touchend', stopDrawing );
 
 
 function bg1() {
