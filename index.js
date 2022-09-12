@@ -69,6 +69,7 @@ lineWidthRange.addEventListener( 'input', event => {
 
 let x = 0, y = 0;
 let isMouseDown = false;
+let isTouchStart = false;
 let w = saveCanvas.width;
 let h = saveCanvas.height;
 
@@ -79,56 +80,87 @@ imageObj1.img.onload = function() {
     start = setInterval(animateimageObj1, 120);
 };
 
-
-
-const stopDrawing = () => { isMouseDown = false; }
-const startDrawing = event => {
-    isMouseDown = true;   
-   [x, y] = [event.offsetX, event.offsetY];  
-}
-const drawLine = event => {
-    if ( isMouseDown ) {
-        const newX = event.offsetX;
-        const newY = event.offsetY;
-        context.beginPath();
-        context.moveTo( x, y );
-        context.lineTo( newX, newY );
-        context.stroke();
-        //[x, y] = [newX, newY];
-        x = newX;
-        y = newY;
+if(('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0)) {
+    const stopDrawingT = () => { isTouchStart = false; }
+    const startDrawingT = event => {
+        isTouchStart = true;   
+        [x, y] = [event.offsetX, event.offsetY];  
     }
-}
-const drawLine1 = event => {
-    if ( isMouseDown ) {
-        const newX = event.offsetX;
-        const newY = event.offsetY;
-        context3.beginPath();
-        context3.moveTo( x, y );
-        context3.lineTo( newX, newY );
-        context3.stroke();
-        //[x, y] = [newX, newY];
-        x = newX;
-        y = newY;
+    const drawLineT = event => {
+        if ( isTouchStart ) {
+            const newX = event.offsetX;
+            const newY = event.offsetY;
+            context.beginPath();
+            context.moveTo( x, y );
+            context.lineTo( newX, newY );
+            context.stroke();
+            //[x, y] = [newX, newY];
+            x = newX;
+            y = newY;
+        }
     }
+    const drawLineT1 = event => {
+        if ( isTouchStart ) {
+            const newX = event.offsetX;
+            const newY = event.offsetY;
+            context3.beginPath();
+            context3.moveTo( x, y );
+            context3.lineTo( newX, newY );
+            context3.stroke();
+            //[x, y] = [newX, newY];
+            x = newX;
+            y = newY;
+        }
+    }
+    headCanvas.addEventListener( 'touchstart', startDrawingT );
+    headCanvas.addEventListener( 'touchmove', drawLineT );
+    headCanvas.addEventListener( 'touchend', stopDrawingT );
+    handCanvas.addEventListener( 'touchstart', startDrawingT );
+    handCanvas.addEventListener( 'touchmove', drawLineT1 );
+    handCanvas.addEventListener( 'touchend', stopDrawingT );
+}else {
+    const stopDrawing = () => { isMouseDown = false; }
+    const startDrawing = event => {
+        isMouseDown = true;   
+       [x, y] = [event.offsetX, event.offsetY];  
+    }
+    const drawLine = event => {
+        if ( isMouseDown ) {
+            const newX = event.offsetX;
+            const newY = event.offsetY;
+            context.beginPath();
+            context.moveTo( x, y );
+            context.lineTo( newX, newY );
+            context.stroke();
+            //[x, y] = [newX, newY];
+            x = newX;
+            y = newY;
+        }
+    }
+    const drawLine1 = event => {
+        if ( isMouseDown ) {
+            const newX = event.offsetX;
+            const newY = event.offsetY;
+            context3.beginPath();
+            context3.moveTo( x, y );
+            context3.lineTo( newX, newY );
+            context3.stroke();
+            //[x, y] = [newX, newY];
+            x = newX;
+            y = newY;
+        }
+    }
+    headCanvas.addEventListener( 'mousedown', startDrawing );
+    headCanvas.addEventListener( 'mousemove', drawLine );
+    headCanvas.addEventListener( 'mouseup', stopDrawing );
+    headCanvas.addEventListener( 'mouseout', stopDrawing );
+    handCanvas.addEventListener( 'mousedown', startDrawing );
+    handCanvas.addEventListener( 'mousemove', drawLine1 );
+    handCanvas.addEventListener( 'mouseup', stopDrawing );
+    handCanvas.addEventListener( 'mouseout', stopDrawing );
 }
-headCanvas.addEventListener( 'mousedown', startDrawing );
-headCanvas.addEventListener( 'mousemove', drawLine );
-headCanvas.addEventListener( 'mouseup', stopDrawing );
-headCanvas.addEventListener( 'mouseout', stopDrawing );
-handCanvas.addEventListener( 'mousedown', startDrawing );
-handCanvas.addEventListener( 'mousemove', drawLine1 );
-handCanvas.addEventListener( 'mouseup', stopDrawing );
-handCanvas.addEventListener( 'mouseout', stopDrawing );
 
-function isTouchDevice() {
-    headCanvas.addEventListener( 'touchstart', startDrawing );
-    headCanvas.addEventListener( 'touchmove', drawLine );
-    headCanvas.addEventListener( 'touchend', stopDrawing );
-    handCanvas.addEventListener( 'touchstart', startDrawing );
-    handCanvas.addEventListener( 'touchmove', drawLine1 );
-    handCanvas.addEventListener( 'touchend', stopDrawing );
-}
+
 
 function bg1() {
     if($('#ply').hasClass('active')){ 
