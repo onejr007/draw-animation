@@ -79,8 +79,8 @@ imageObj1.img.onload = function() {
     context3.drawImage(hand, 0, 0);
     start = setInterval(animateimageObj1, 120);
 };
-
-if(('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0)) {
+if ("ontouchstart" in document.documentElement)
+{
     const stopDrawingT = () => { isTouchStart = false; }
     const startDrawingT = event => {
         isTouchStart = true;   
@@ -118,7 +118,9 @@ if(('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.ms
     handCanvas.addEventListener( 'touchstart', startDrawingT );
     handCanvas.addEventListener( 'touchmove', drawLineT1 );
     handCanvas.addEventListener( 'touchend', stopDrawingT );
-}else {
+}
+else
+{
     const stopDrawing = () => { isMouseDown = false; }
     const startDrawing = event => {
         isMouseDown = true;   
@@ -159,7 +161,6 @@ if(('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.ms
     handCanvas.addEventListener( 'mouseup', stopDrawing );
     handCanvas.addEventListener( 'mouseout', stopDrawing );
 }
-
 
 
 function bg1() {
