@@ -82,12 +82,12 @@ imageObj1.img.onload = function() {
 const stopDrawing = () => { isMouseDown = false; }
 const startDrawing = event => {
     isMouseDown = true;   
-    [x, y] = [event.offsetX || event.touches[0].clientX + 10, event.offsetY || event.touches[0].clientY + 10];  
+    [x, y] = [event.offsetX || event.touches[0].clientX, event.offsetY || event.touches[0].clientY];  
 }
 const drawLine = event => {
     if ( isMouseDown ) {
         const newX = event.offsetX || event.touches[0].clientX;
-        const newY = event.offsetY || event.touches[0].clientY - 10;
+        const newY = event.offsetY || event.touches[0].clientY - 50;
         context.beginPath();
         context.moveTo( x, y );
         context.lineTo( newX, newY );
