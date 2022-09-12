@@ -121,14 +121,14 @@ handCanvas.addEventListener( 'mousemove', drawLine1 );
 handCanvas.addEventListener( 'mouseup', stopDrawing );
 handCanvas.addEventListener( 'mouseout', stopDrawing );
 
-headCanvas.addEventListener( 'touchdown', startDrawing );
-headCanvas.addEventListener( 'touchmove', drawLine );
-headCanvas.addEventListener( 'touchup', stopDrawing );
-headCanvas.addEventListener( 'touchout', stopDrawing );
-handCanvas.addEventListener( 'touchdown', startDrawing );
-handCanvas.addEventListener( 'touchmove', drawLine1 );
-handCanvas.addEventListener( 'touchup', stopDrawing );
-handCanvas.addEventListener( 'touchout', stopDrawing );
+function isTouchDevice() {
+    headCanvas.addEventListener( 'touchstart', startDrawing );
+    headCanvas.addEventListener( 'touchmove', drawLine );
+    headCanvas.addEventListener( 'touchend', stopDrawing );
+    handCanvas.addEventListener( 'touchstart', startDrawing );
+    handCanvas.addEventListener( 'touchmove', drawLine1 );
+    handCanvas.addEventListener( 'touchend', stopDrawing );
+}
 
 function bg1() {
     if($('#ply').hasClass('active')){ 
