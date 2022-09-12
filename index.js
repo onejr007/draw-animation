@@ -82,7 +82,7 @@ imageObj1.img.onload = function() {
 const stopDrawing = () => { isMouseDown = false; }
 const startDrawing = event => {
     isMouseDown = true;   
-    [x, y] = [event.offsetX || event.touches[0].clientX-0, event.offsetY || event.touches[0].clientY-0] 
+    [x, y] = [event.offsetX || event.touches[0].clientX-20, event.offsetY || event.touches[0].clientY-60] 
 }
 const drawLine = event => {
     if ( isMouseDown ) {
