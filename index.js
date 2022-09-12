@@ -82,12 +82,12 @@ imageObj1.img.onload = function() {
 const stopDrawing = () => { isMouseDown = false; }
 const startDrawing = event => {
     isMouseDown = true;   
-    [x, y] = [event.offsetX || event.touches[0].offsetX, event.offsetY || event.touches[0].offsetY];  
+    [x, y] = [event.offsetX || event.touches[0].clientX - this.offsetLeft, event.offsetY || event.touches[0].clientY - this.offsetTop - 40];  
 }
 const drawLine = event => {
     if ( isMouseDown ) {
-        const newX = event.offsetX || event.touches[0].offsetX;
-        const newY = event.offsetY || event.touches[0].offsetY;
+        const newX = event.offsetX || event.touches[0].clientX - this.offsetLeft;
+        const newY = event.offsetY || event.touches[0].clientY - this.offsetTop - 40;
         context.beginPath();
         context.moveTo( x, y );
         context.lineTo( newX, newY );
@@ -99,8 +99,8 @@ const drawLine = event => {
 }
 const drawLine1 = event => {
     if ( isMouseDown ) {
-        const newX = event.offsetX || event.touches[0].offsetX;
-        const newY = event.offsetY || event.touches[0].offsetY;
+        const newX = event.offsetX || event.touches[0].clientX - this.offsetLeft;
+        const newY = event.offsetY || event.touches[0].clientY - this.offsetTop - 40;
         context3.beginPath();
         context3.moveTo( x, y );
         context3.lineTo( newX, newY );
